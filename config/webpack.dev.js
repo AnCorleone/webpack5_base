@@ -2,9 +2,9 @@ const { resolve } = require('path')
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// webpack v5 开箱即带有最新版本的 terser-webpack-plugin
 const cssLoader = ['style-loader', 'css-loader']
 module.exports = {
-
   entry: './main.js',
   output: {
     filename: 'js/main.js',
@@ -40,17 +40,16 @@ module.exports = {
           // babel 配置
           {
             test: /\.js$/,
-            // exclude: /(node_modules)/, // 排除node_modules,
+            // exclude: /(node_modules|bower_components)/, // 排除node_modules,
             include: resolve(__dirname, '../src'),
             use: {
-              loader: 'babel-loader',
-              options: {
-                cacheDirectory: true, // 默认是false
-                cacheCompression: true // 默认是true,当设置此值时，会使用 Gzip 压缩每个 Babel transform 输出。
-              }
+              loader: 'babel-loader'
               // babel配置文,单独写在babel.config.js文件中
               // options: {
-              //   presets: ['@babel/preset-env']
+              // cacheDirectory: true, // 默认是false
+              // cacheCompression: true, // 默认是true,当设置此值时，会使用 Gzip 压缩每个 Babel transform 输出。
+              // presets: ['@babel/preset-env'],
+              // plugins: ['@babel/plugin-transform-runtime']
               // }
             }
           }

@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   parserOptions: {
     parser: 'babel-eslint',
-    sourceType: 'module'
+    sourceType: 'module', // 指定来源的类型，"script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)
+    allowImportExportEverywhere: true // 不限制eslint对import使用位置
   },
   env: {
     browser: true,
@@ -183,5 +184,6 @@ module.exports = {
       objectsInObjects: false
     }],
     'array-bracket-spacing': [2, 'never']
-  }
+  },
+  plugins: ['import'] // 解决eslint动态导入报错
 }
