@@ -1,5 +1,5 @@
 {
-  "name": "webpack4_test",
+  "name": "webpack4_base",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -27,9 +27,17 @@
     "eslint-webpack-plugin": "^3.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.16",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.8.2",
     "stylus": "^0.59.0",
     "stylus-loader": "^7.0.0",
     "webpack": "^5.74.0",
     "webpack-dev-server": "^4.11.1"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

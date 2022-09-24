@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const cssLoader = ['style-loader', 'css-loader']
 module.exports = {
 
   entry: './main.js',
@@ -13,10 +13,10 @@ module.exports = {
   // loader 配置
   module: {
     rules: [
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
-      { test: /\.s[ac]ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
-      { test: /\.stylus$/, use: ['style-loader', 'css-loader', 'stylus-loader'] },
+      { test: /\.css$/, use: cssLoader },
+      { test: /\.less$/, use: [...cssLoader, 'less-loader'] },
+      { test: /\.s[ac]ss$/, use: [...cssLoader, 'sass-loader'] },
+      { test: /\.stylus$/, use: [...cssLoader, 'stylus-loader'] },
       // 图片资源处理
       {
         test: /\.(png|jpe?g|gif|webp|svg)$/,

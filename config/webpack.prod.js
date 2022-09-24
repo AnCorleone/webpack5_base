@@ -2,6 +2,26 @@ const { resolve } = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+function getStyleLoader(pre) {
+  return [
+    // 不同于dev,prod使用 ‘MiniCssExtractPlugin.loader’,会将css提取为单独的文件,并将多个css文件单独提取为一个文件
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    //  css 兼容处理 , 还需要在package.json 中配置browserslist
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            ['postcss-preset-env'] // 能处理大部分兼容问题
+          ]
+        }
+      }
+    },
+    pre
+  ].filter(Boolean)
+}
+
 module.exports = {
 
   entry: './main.js',
@@ -13,11 +33,11 @@ module.exports = {
   // loader 配置
   module: {
     rules: [
-      // 不同于dev,prod使用 ‘MiniCssExtractPlugin.loader’,会将css提取为单独的文件,并将多个css文件单独提取为一个文件
-      { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
-      { test: /\.less$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'] },
-      { test: /\.s[ac]ss$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] },
-      { test: /\.stylus$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader'] },
+
+      { test: /\.css$/, use: getStyleLoader() },
+      { test: /\.less$/, use: getStyleLoader('less-loader') },
+      { test: /\.s[ac]ss$/, use: getStyleLoader('sass-loader') },
+      { test: /\.stylus$/, use: getStyleLoader('stylus-loader') },
       // 图片资源处理
       {
         test: /\.(png|jpe?g|gif|webp|svg)$/,

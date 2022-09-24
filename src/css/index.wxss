@@ -1,11 +1,10 @@
-.root{
+.root {
   display: flex;
 }
-
-#title{
+#title {
   background-color: yellow;
 }
-.box{
+.box {
   width: 700px;
   height: 400px;
   background-image: url('../assets/images/dog.jpeg');
