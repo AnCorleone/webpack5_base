@@ -64,7 +64,11 @@ module.exports = {
             // exclude: /(node_modules)/, // 排除node_modules
             include: resolve(__dirname, '../src'),
             use: {
-              loader: 'babel-loader'
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true, // 默认是false
+                cacheCompression: true // 默认是true,当设置此值时，会使用 Gzip 压缩每个 Babel transform 输出。
+              }
               // babel配置文,单独写在babel.config.js文件中
               // options: {
               //   presets: ['@babel/preset-env']
@@ -84,7 +88,11 @@ module.exports = {
   },
   plugins: [
     // eslint 插件,需要配合.eslintrc.js 文件,.eslintignore 忽略文件,vscode eslint插件
-    new ESLintPlugin({ context: resolve(__dirname, '../src') }),
+    new ESLintPlugin({
+      context: resolve(__dirname, '../src'),
+      cache: true, // 开启缓存
+      cacheLocation: resolve(__dirname, 'node_modules/.cache/eslintCache')
+    }),
     new HtmlWebpackPlugin({
       // 配置要打包的html 文件的位置 ,会自动引入打包需要的资源
       template: resolve(__dirname, '../public/index.html')
