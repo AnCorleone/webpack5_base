@@ -34,40 +34,43 @@ module.exports = {
   // loader 配置
   module: {
     rules: [
-
-      { test: /\.css$/, use: getStyleLoader() },
-      { test: /\.less$/, use: getStyleLoader('less-loader') },
-      { test: /\.s[ac]ss$/, use: getStyleLoader('sass-loader') },
-      { test: /\.stylus$/, use: getStyleLoader('stylus-loader') },
-      // 图片资源处理
       {
-        test: /\.(png|jpe?g|gif|webp|svg)$/,
-        type: 'asset',
-        // 各种图片资源/base64图片,处理
-        parser: { dataUrlCondition: { maxSize: 4 * 1024 }},
-        generator: {
-          filename: 'static/images/[hash:10][ext][query]'
-        }
-      },
-      // iconfont 字体图标/音视频 处理
-      {
-        test: /\.(ttf|woff|woff2|mp3|mp4|avi)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'static/media/[hash:10][ext][query]'
-        }
-      },
-      // babel 配置
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/, // 排除node_modules
-        use: {
-          loader: 'babel-loader'
-          // babel配置文,单独写在babel.config.js文件中
-          // options: {
-          //   presets: ['@babel/preset-env']
-          // }
-        }
+        oneOf: [
+          { test: /\.css$/, use: getStyleLoader() },
+          { test: /\.less$/, use: getStyleLoader('less-loader') },
+          { test: /\.s[ac]ss$/, use: getStyleLoader('sass-loader') },
+          { test: /\.stylus$/, use: getStyleLoader('stylus-loader') },
+          // 图片资源处理
+          {
+            test: /\.(png|jpe?g|gif|webp|svg)$/,
+            type: 'asset',
+            // 各种图片资源/base64图片,处理
+            parser: { dataUrlCondition: { maxSize: 4 * 1024 }},
+            generator: {
+              filename: 'static/images/[hash:10][ext][query]'
+            }
+          },
+          // iconfont 字体图标/音视频 处理
+          {
+            test: /\.(ttf|woff|woff2|mp3|mp4|avi)$/,
+            type: 'asset/resource',
+            generator: {
+              filename: 'static/media/[hash:10][ext][query]'
+            }
+          },
+          // babel 配置
+          {
+            test: /\.js$/,
+            exclude: /(node_modules)/, // 排除node_modules
+            use: {
+              loader: 'babel-loader'
+              // babel配置文,单独写在babel.config.js文件中
+              // options: {
+              //   presets: ['@babel/preset-env']
+              // }
+            }
+          }
+        ]
       }
     ]
   },
@@ -92,5 +95,7 @@ module.exports = {
       filename: 'static/css/main.css'
     })
   ],
-  mode: 'production'
+  mode: 'production',
+  //  源码和编译后的代码映射关系,方便调试,定位错误
+  devtool: 'source-map'
 }
