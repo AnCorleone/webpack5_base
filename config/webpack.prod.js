@@ -61,7 +61,8 @@ module.exports = {
           // babel 配置
           {
             test: /\.js$/,
-            exclude: /(node_modules)/, // 排除node_modules
+            // exclude: /(node_modules)/, // 排除node_modules
+            include: resolve(__dirname, '../src'),
             use: {
               loader: 'babel-loader'
               // babel配置文,单独写在babel.config.js文件中

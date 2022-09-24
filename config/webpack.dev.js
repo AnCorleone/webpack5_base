@@ -40,7 +40,8 @@ module.exports = {
           // babel 配置
           {
             test: /\.js$/,
-            exclude: /(node_modules)/, // 排除node_modules
+            // exclude: /(node_modules)/, // 排除node_modules,
+            include: resolve(__dirname, '../src'),
             use: {
               loader: 'babel-loader'
               // babel配置文,单独写在babel.config.js文件中
@@ -55,7 +56,11 @@ module.exports = {
   },
   plugins: [
     // eslint 插件,需要配合.eslintrc.js 文件,.eslintignore 忽略文件,vscode eslint插件
-    new ESLintPlugin({ context: resolve(__dirname, '../src') }),
+    new ESLintPlugin(
+      {
+        context: resolve(__dirname, '../src'),
+        exclude: 'node_modules' } // 默认值
+    ),
     new HtmlWebpackPlugin({
       // 配置要打包的html 文件的位置 ,会自动引入打包需要的资源
       template: path.resolve(__dirname, '../public/index.html')
