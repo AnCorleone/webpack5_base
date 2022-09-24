@@ -1,5 +1,5 @@
 {
-  "name": "webpack4_base",
+  "name": "webpack5_base",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.19.1",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.1.0",
     "eslint": "^8.23.1",
     "eslint-webpack-plugin": "^3.2.0",
     "html-webpack-plugin": "^5.5.0",
