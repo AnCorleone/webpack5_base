@@ -403,4 +403,4 @@ output: {
 
 ### 总结
 
-![IMG_0016](/Users/anakin/Source.localized/Web/webpack/webpack5_base/src/assets/images/IMG_0016.jpeg)
+![IMG_0016](./src/assets/images/IMG_0016.jpeg)
