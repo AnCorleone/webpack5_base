@@ -1,3 +1,5 @@
+
+
 # webpack5_base
 
 ###  [webpack5参考文档地址](https://webpack.docschina.org/)
@@ -281,3 +283,78 @@ output: {
  },
 ```
 
+###   预加载 
+
+- preload  ``@vue/preload-webpack-plugin`` 
+- prefetch
+
+参考博客[使用 Preload&Prefetch 优化前端页面的资源加载](https://blog.csdn.net/qq_34629352/article/details/121311853)
+
+
+
+### 解决js兼容性问题CoreJs
+
+*如promise,async,数组一些方法如includes 在一些低版本的浏览器,可能会存在兼容性问题*
+
+- core-js 是什么
+
+  - cors-js是准专门来做es6及以上的API的``polyfill`` 
+  - ``polyfill``翻译为垫片/补丁,就是使用社区上提供的一段代码,让我们在不兼容某些特性的浏览器上,使用新特性
+
+- cors-js 怎么用
+
+  - ```
+    npm i core-js
+    ```
+
+  - ```javascript
+    /**
+     *  webpack 入口文件 main.js
+     *
+     * 运行指令
+     */
+    import 'core-js'; // <- at the top of your entry point 全局引入,这样会增加打包体积
+    import './src/css/index.css'
+    import './src/css/index.less'
+    import { add } from './src/index'
+    import { count } from './src/utils/math'
+    console.log('== add == ', add(1, 2))
+    ```
+  
+  - 按需引入
+  
+    ```javascript
+    import 'core-js/es/promise' // 按需引入
+    ```
+  
+  - 按需要加载自动引入,在babel中配置参数,不需要在入口文件手动引入core-js,[参考文档](https://www.babeljs.cn/docs/babel-preset-env)
+  
+    ```javascript
+    // babel.config.js
+    module.exports = {
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "usage", // usage|entry , 按需要加载自动引入
+            "corejs": "3.22"
+          }
+        ]
+      ],
+      ...
+    }
+    ```
+
+### PWA
+
+*渐进式网络应用程序(progressive web applicatiion ) ,是一种类似于native app(原生应用程序)体验的Web App 技术,其中最重要的是,在离线的时候应用程序能够继续运行. 内部通过service workers 技术实现*
+
+- 下载包,[参考文档](https://webpack.docschina.org/guides/progressive-web-application/#adding-workbox)
+
+  ```
+  npm install workbox-webpack-plugin --save-dev
+  ```
+
+  
+
+- 
