@@ -357,4 +357,50 @@ output: {
 
   
 
-- 
+- webpack.config 配置
+
+  ```javascript
+  const HtmlWebpackPlugin = require('html-webpack-plugin')
+  plugins: [
+    	...
+      new WorkboxPlugin.GenerateSW({
+        // 这些选项帮助快速启用 ServiceWorkers
+        // 不允许遗留任何“旧的” ServiceWorkers
+        clientsClaim: true,
+        skipWaiting: true,
+      }),
+    ],
+  ```
+
+- 入口文件,注册 Service Worker
+
+  ```javascript
+  // 注册 Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+  
+  ```
+
+- 全局安装 serve ,本地部署打包生成的dist文件,
+
+  ```javascript
+  npm i serve -g
+  serve dist
+  ```
+
+  
+
+- 存在问题,低版本浏览器兼容性差
+
+
+
+### 总结
+
+![IMG_0016](/Users/anakin/Source.localized/Web/webpack/webpack5_base/src/assets/images/IMG_0016.jpeg)

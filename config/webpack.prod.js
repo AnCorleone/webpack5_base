@@ -3,6 +3,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin');
 // webpack v5 开箱即带有最新版本的 terser-webpack-plugin
 const TerserPlugin = require('terser-webpack-plugin')
 const os = require('os')
@@ -146,7 +147,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       // 配置要打包的html 文件的位置 ,会自动引入打包需要的资源
-      template: resolve(__dirname, '../public/index.html')
+      template: resolve(__dirname, '../public/index.html'),
+      // title: 'Output Management',
+      title: 'Progressive Web Application',
     }),
     // 这个插件使用 cssnano 优化和压缩 CSS。
     new MiniCssExtractPlugin(),
@@ -160,7 +163,13 @@ module.exports = {
         // parallel: true
         parallel: threads // 启用多进程并发运行并设置并发运行次数。
       }
-    )
+    ),
+    new WorkboxPlugin.GenerateSW({
+      // 这些选项帮助快速启用 ServiceWorkers
+      // 不允许遗留任何“旧的” ServiceWorkers
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ],
   mode: 'production',
   //  源码和编译后的代码映射关系,方便调试,定位错误
